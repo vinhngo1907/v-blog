@@ -5,25 +5,25 @@ import NotFound from './components/global/NotFound'
 
 
 const generatePage = (name: string) => {
-  const component = () => require(`./pages/${name}`).default
+	const component = () => require(`./pages/${name}`).default
 
-  try {
-    return React.createElement(component())
-  } catch (err) {
-    return <NotFound />;
-  }
+	try {
+		return React.createElement(component())
+	} catch (err) {
+		return <NotFound />;
+	}
 }
 
 const PageRender = () => {
-  const { page, slug }: IParams = useParams()
+	const { page, slug }: IParams = useParams()
 
-  let name = '';
+	let name = '';
 
-  if (page) {
-    name = slug ? `${page}/[slug]` : `${page}`
-  }
+	if (page) {
+		name = slug ? `${page}/[slug]` : `${page}`
+	}
 
-  return generatePage(name)
+	return generatePage(name)
 }
 
 export default PageRender;
