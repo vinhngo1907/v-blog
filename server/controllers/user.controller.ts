@@ -7,23 +7,23 @@ const userController = {
 
         } catch (error: any) {
             console.log(error);
-            return res.status(500).json({msg:error.message});
+            return res.status(500).json({ msg: error.message });
         }
     },
-    updateUser: async(req:Request, res:Response)=>{
-        try{
+    updateUser: async (req: Request, res: Response) => {
+        try {
 
-        }catch(error:any){
+        } catch (error: any) {
             console.log(error);
-            return res.status(500).json({msg:error.message});
+            return res.status(500).json({ msg: error.message });
         }
     },
-    resetPassword: async(req: Request, res: Response)=>{
-        try{
+    resetPassword: async (req: Request, res: Response) => {
+        try {
 
-        }catch(error:any){
+        } catch (error: any) {
             console.log(error);
-            return res.status(500).json({msg:error.message});
+            return res.status(500).json({ msg: error.message });
         }
     }
 }

@@ -21,9 +21,9 @@ const authController = {
         }
     },
     refreshToken: async (req: Request, res: Response) => {
-        try{
+        try {
 
-        }catch(error: any){
+        } catch (error: any) {
             console.log(error);
             return res.status(500).json({ msg: error.message });
         }
