@@ -22,6 +22,22 @@ export interface IUserLogin {
     password: string
 }
 
+export interface IUserRegister extends IUserLogin {
+    name: string
+    cf_password: string
+}
+
+export interface IUser extends IUserLogin {
+    avatar: string
+    createdAt: string
+    name: string
+    role: string
+    type: string
+    updatedAt: string
+    _id: string
+}
+
+
 export interface IAlert {
     loading?: boolean
     success?: string | string[]
