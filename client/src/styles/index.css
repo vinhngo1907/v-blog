@@ -21,3 +21,6 @@ code {
     transform: translateY(-3px);
     border-radius: 50%;
 }
+
+/* ---------- Alert Page------------ */
+@import url('./alert.css');
