@@ -27,7 +27,6 @@ const authController = {
             const url = `${CLIENT_URL}`
             if(validEmail(account)){
                 // sendEmail()
-
             }
 
         } catch (error: any) {
