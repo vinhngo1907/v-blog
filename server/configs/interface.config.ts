@@ -26,13 +26,20 @@ export interface IDecodeToken {
 }
 
 export interface IUserParams {
-    name: string 
-    account: string 
+    name: string
+    account: string
     password: string
     avatar?: string
     type: string
-}  
+}
 
 export interface IReqAuth extends Request {
     user?: IUser
-  }
+}
+
+export interface IDecodedToken {
+    id?: string
+    newUser?: INewUser
+    iat: number
+    exp: number
+}
