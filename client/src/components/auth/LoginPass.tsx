@@ -1,5 +1,7 @@
 const LoginPass = () => {
-    return <></>
+    return (
+        <div></div>
+    )
 }
 
 export default LoginPass;

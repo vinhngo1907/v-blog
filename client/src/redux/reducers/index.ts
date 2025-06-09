@@ -5,4 +5,4 @@ import alert from './alertReducer'
 export default combineReducers({
     auth,
     alert
-})
+});
