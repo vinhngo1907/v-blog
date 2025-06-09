@@ -1,8 +1,42 @@
 import React from 'react'
+import { useDispatch } from 'react-redux';
+import { ALERT } from '../../redux/types/alertType';
 
-const Toast = () =>{
-    return(
-        <></>
+interface IProps {
+    title: string
+    body: string | string[]
+    bgColor: string
+}
+
+const Toast = ({ title, body, bgColor }: IProps) => {
+    const dispatch = useDispatch();
+    const handleClose = () => {
+        dispatch({ type: ALERT, payload: {} });
+    }
+
+    return (
+        <div className={`toast show position-fixed text-light ${bgColor}`}>
+            <div className={`toast-header text-light ${bgColor}`}>
+                <strong className='me-auto'>{title}</strong>
+                <button className='btn-close' data-bs-dismiss="toast"
+                    onClick={handleClose}
+                    aria-label='Close' type='button'
+                />
+            </div>
+            <div className='toast-body'>
+                {
+                    typeof (body) === "string" ? body :
+                        (
+                            <ul>
+                                {
+                                    body.map((text, index) => (
+                                        <li key={index}>{text}</li>
+                                    ))}
+                            </ul>
+                        )
+                }
+            </div>
+        </div>
     )
 }
 
