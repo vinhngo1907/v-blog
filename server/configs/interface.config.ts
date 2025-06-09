@@ -43,3 +43,13 @@ export interface IDecodedToken {
     iat: number
     exp: number
 }
+
+export interface IBlog {
+    user: string,
+    title: string,
+    content: string,
+    description: string,
+    thumbnail: string,
+    category: string,
+    _doc: object
+}
