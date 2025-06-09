@@ -1,6 +1,23 @@
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import Alert from "./components/alert/Alert";
+import Header from "./components/global/Header";
+import PageRender from "./PageRender";
+import Footer from "./components/global/Footer";
+
 const App = () => {
     return (
-        <div className="container">App</div>
+        <div className="container">
+            <Router>
+                <Alert />
+                <Header />
+                <Switch>
+                    <Route exact path="/" component={PageRender} />
+                    <Route exact path="/:page" component={PageRender} />
+                    <Route exact path="/:page/:slug" component={PageRender} />
+                </Switch>
+                <Footer />
+            </Router>
+        </div>
     )
 }
 
