@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { register } from "../../redux/actions/authAction";
 
 export default function RegisterForm() {
     const dispatch = useDispatch();
@@ -12,14 +13,14 @@ export default function RegisterForm() {
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
-        
+        dispatch(register(userRegister));
     }
 
     const handleChange = (e: any) => {
         setUserRegister({ ...userRegister, [e.target.id]: e.target.value })
     }
     return (
-        <form>
+        <form onSubmit={handleSubmit}>
             <div className="form-group mb-3">
                 <label htmlFor="name" className="form-label">Name</label>
 

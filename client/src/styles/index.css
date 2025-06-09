@@ -24,3 +24,12 @@ code {
 
 /* ---------- Alert Page------------ */
 @import url('./alert.css');
+
+/* ---------- Auth Page------------ */
+@import url('./auth.css');
+
+/* ---------- Home Page------------ */
+@import url('./home.css');
+
+/* ---------- Loading ------------ */
+@import url('./loading.css');

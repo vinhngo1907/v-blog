@@ -37,6 +37,14 @@ export interface IUser extends IUserLogin {
     _id: string
 }
 
+export interface IUser extends IUserRegister {
+    name: string
+    type: string
+    updatedAt: string
+    password: string
+    cf_password: string
+}
+
 
 export interface IAlert {
     loading?: boolean
