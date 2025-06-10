@@ -1,4 +1,3 @@
-import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import categoryModel from "../models/category.model";
 import { IReqAuth } from "../configs/interface.config";
@@ -15,7 +14,6 @@ const categoryController = {
     },
 
     createCategory: async (req: IReqAuth, res: Response) => {
-         console.log("????",req.user)
         if (!req.user) return res.status(400).json({ msg: "Invalid Authorization" });
         if (req.user.role !== 'admin')
             return res.status(400).json({ msg: "You don't have permission to create category." })
@@ -37,7 +35,7 @@ const categoryController = {
     },
 
     updateCategory: async (req: IReqAuth, res: Response) => {
-        console.log("????",req.user)
+        console.log("????", req.user)
         if (!req.user) return res.status(400).json({ msg: "Invalid Authentication." })
         if (req.user.role !== 'admin')
             return res.status(400).json({ msg: "You don't have permission to update category." })

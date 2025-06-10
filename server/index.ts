@@ -1,12 +1,13 @@
 // const dotenv = require("dotenv");
 import dotenv from "dotenv";
 dotenv.config();
-// const express = require("express");
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import {connectDB} from "./configs/db.config";
 import createRouter from "./routes/index.routing";
+
+import { getAppConfig } from "./configs/env.config";
 
 // Connect DB
 connectDB();
@@ -24,6 +25,7 @@ app.use(cors({
 // Routers
 createRouter(app);
 
-const PORT = process.env.PORT || 5001;
+// const PORT = process.env.PORT || 5001;
+const { PORT } = getAppConfig();
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
