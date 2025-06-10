@@ -7,7 +7,7 @@ export const getCategories = () => async (dispatch: Dispatch<IAlertType | ICateg
     try {
         dispatch({ type: ALERT, payload: { loading: true } })
         const res = await getDataAPI('category');
-        dispatch({ type: GET_CATEGORIES, payload: res.data });
+        dispatch({ type: GET_CATEGORIES, payload: res.data.categories });
         dispatch({ type: ALERT, payload: { loading: false } })
 
     } catch (error: any) {

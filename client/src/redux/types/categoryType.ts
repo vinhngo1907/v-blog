@@ -7,10 +7,7 @@ export const DELETE_CATEGORY = 'DELETE_CATEGORY'
 
 export interface IGetCategories {
     type: typeof GET_CATEGORIES
-    payload: {
-        msg: string,
-        categories: ICategory[]
-    }
+    payload: ICategory[]
 }
 
 export interface ICreateCategory {

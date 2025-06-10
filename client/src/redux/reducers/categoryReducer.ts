@@ -6,7 +6,7 @@ export default function categoryReducer(
     action: types.ICategoryType): ICategory[] {
     switch (action.type) {
         case types.GET_CATEGORIES:
-            return action.payload.categories;
+            return action.payload;
         case types.CREATE_CATEGORY:
             return [action.payload, ...state]
         // case types.UPDATE_CATEGORY:
