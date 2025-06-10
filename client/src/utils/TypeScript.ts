@@ -45,7 +45,6 @@ export interface IUser extends IUserRegister {
     cf_password: string
 }
 
-
 export interface IAlert {
     loading?: boolean
     success?: string | string[]
@@ -53,6 +52,19 @@ export interface IAlert {
 }
 
 export interface IBlog {
-    _id: string,
-    
+    _id?: string,
+    user: string | IUser
+    title: string
+    content: string
+    description?: string
+    // category: string | ICategory
+    thumbnail: string | File
+    createdAt: string
+}
+
+export interface ICategory {
+    _id: string
+    name: string
+    createdAt: string
+    updatedAt: string
 }

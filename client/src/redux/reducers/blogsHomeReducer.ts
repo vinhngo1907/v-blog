@@ -1,5 +1,5 @@
-import { IBlog } from '../../utils/TypeScript';
-import { GET_HOME_BLOGS, IGetBlogsCategoryType, IGetHomeBlogsType, IBlogsHome } from '../types/blogType'
+// import { IBlog } from '../../utils/TypeScript';
+import { GET_HOME_BLOGS, IGetHomeBlogsType, IBlogsHome } from '../types/blogType'
 
 
 const blogsHomeReducer = (state: IBlogsHome[] = [], action: IGetHomeBlogsType): IBlogsHome[] => {
