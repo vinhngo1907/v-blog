@@ -4,7 +4,8 @@ import auth from "../middlewares/auth.middleware";
 const router = express.Router();
 
 router.get("/home", blogController.getBlogs);
+router.get('/:id/category', blogController.getBlogsByCategory);
 router.post('/', auth, blogController.createBlog);
-router.get('/:id', auth, blogController.getBlog);
-
+router.get('/:id', blogController.getBlog);
+router.get("/:id/user", blogController.getBlogs)
 export default router;
