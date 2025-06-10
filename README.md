@@ -29,15 +29,21 @@
 ## 2. Deployment Guideline
 
 ### Prerequisites
-- Google Cloud SDK
-- Permission to access resources in mern-v-blog project
+- Access to the project's Netlify and Render accounts
+- Access to the MongoDB Atlas cloud cluster
 - Credentials of __*****__ Statging DB
 
 ### Deployment Steps
 
-Front-end: Run ```yarn deploy``` to deploy to GCP. If we migrate to Google Storage, then use deploy.sh instead.
-Back-end: 
-1. Update the values in server/.env.production. If you don't have it, consider following the template in server/.env.
+Front-end (Netlify):
+1. Push changes to the main branch (or the branch configured in Netlify).
+2. Netlify will automatically deploy the updated site.
+3. Alternatively, you can trigger a manual deploy via the Netlify dashboard:
+   - URL: https://app.netlify.com/sites/mern-v-blog/overview
+
+Back-end (Render): 
+1. Update the values in `server/.env.production`.  
+   If the file doesn't exist, create one by following the structure in `server/.env`.
 2. Update the value in that file
 ```bash
 PORT={PRODUCTION_PORT}
@@ -66,10 +72,21 @@ TWILIO_SERVICE_ID={PRODUCTION_TWILIO_SERVICE_ID}
 
 ```
 3. The file should NEVER been committed to source control, because it contains sensitive information.
-4. Run yarn deploy to deploy to Google App Engine.
+4. Update the environment variables in the Render dashboard:
+   - URL: https://dashboard.render.com/web/mern-v-blog
+5. Push changes to the linked GitHub repository.
+6. Render will automatically build and deploy your service.
+
+### Database (MongoDB Atlas)
+1. Go to MongoDB Atlas dashboard:
+   - URL: https://cloud.mongodb.com/v2#/clusters
+2. Make sure the cluster is active and your IP is whitelisted.
+3. Connection string (keep secure and update `.env` in server):
 
 ### CI/CD Setup
-The project use TravisCI for CI/CD. The project can be accessed at Henry Technical Test. Please modify /server/.travis.yml. If you want to update the build and CI process.
+The project uses **GitHub Actions** for CI/CD.
+
+Whenever you push changes to the `mern-v-blog` branch (or create a pull request targeting it), GitHub Actions will automatically run the workflow defined in:
 
 ## 3. Other Notes
 ### What I have completed
