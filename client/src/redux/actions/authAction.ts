@@ -8,7 +8,7 @@ import { checkTokenExp } from "../../utils/checkTokenExp";
 export const login = (userLogin: IUserLogin) => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
     try {
         dispatch({ type: ALERT, payload: { loading: true } });
-        const result = await postDataAPI('login', userLogin, null);
+        const result = await postDataAPI('auth/login', userLogin, null);
         dispatch({ type: AUTH, payload: result.data });
         dispatch({ type: ALERT, payload: { loading: false } });
         localStorage.setItem("logged", "v-dev");
@@ -17,12 +17,12 @@ export const login = (userLogin: IUserLogin) => async (dispatch: Dispatch<IAuthT
     }
 }
 
-export const refresh = () => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
+export const refreshToken = () => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
     const logged = localStorage.getItem("logged");
     if (logged !== 'v-dev') return;
 
     try {
-        const res = await getDataAPI('refresh_token');
+        const res = await getDataAPI('auth/refresh_token');
         dispatch({ type: AUTH, payload: res.data });
         dispatch({ type: ALERT, payload: {} })
     } catch (error: any) {

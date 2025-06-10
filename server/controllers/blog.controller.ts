@@ -17,8 +17,8 @@ const blogController = {
         }
     },
     createBlog: async (req: IReqAuth, res: Response) => {
-        if (!req.user) return res.status(400).json({ msg: "Invalid Authentication." })
-
+        if (!req.user) return res.status(400).json({ msg: "Invalid Authentication." });
+        
         try {
             const { title, content, description, thumbnail, category }: IBlog = req.body;
             const newBlog = new blogModel({
