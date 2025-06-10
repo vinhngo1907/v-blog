@@ -33,3 +33,6 @@ code {
 
 /* ---------- Loading ------------ */
 @import url('./loading.css');
+
+/* ---------- Category ------------ */
+@import url('./category.css');
