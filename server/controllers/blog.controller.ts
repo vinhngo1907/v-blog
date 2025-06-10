@@ -159,7 +159,7 @@ const blogController = {
                                     from: "users",
                                     let: { user_id: "$user" },
                                     pipeline: [
-                                        { $match: { $expr: { $eq: ["$_id", "$$user+_id"] } } },
+                                        { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
                                         { $project: { password: 0, rf_token: 0 } }
                                     ],
                                     as: "user"

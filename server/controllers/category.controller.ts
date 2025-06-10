@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import categoryModel from "../models/category.model";
 import { IReqAuth } from "../configs/interface.config";
+import blogModel from "../models/blog.model";
 
 const categoryController = {
     getCategories: async (req: Request, res: Response) => {
@@ -59,6 +60,25 @@ const categoryController = {
                 errMsg = err.errors[`${name}`].message
             }
             return res.status(500).json({ msg: errMsg });
+        }
+    },
+    deleteCategory: async (req: IReqAuth, res: Response) => {
+        if (!req.user) return res.status(400).json({ msg: "Invalid Authorization" });
+        if (req.user.role !== 'admin')
+            return res.status(400).json({ msg: "You don't have permission to delete category." })
+        try {
+            const blog = await blogModel.findOne({ category: req.params.id })
+            if (blog)
+                return res.status(400).json({
+                    msg: "Can not delete! In this category also exist blogs."
+                })
+
+            const deletedCategory = await categoryModel.findByIdAndDelete(req.params.id);
+            if (!deletedCategory) return res.status(400).json({ msg: "Category not found or/and user not authorized" });
+
+            res.json({ msg: "Deleted category in successfully!!!" });
+        } catch (error: any) {
+            return res.status(500).json({ msg: error.message });
         }
     }
 }
