@@ -3,6 +3,8 @@ const router = express.Router();
 import auth from "../middlewares/auth.middleware";
 import categoryController from "../controllers/category.controller";
 
-router.get('/:id', auth, categoryController.getCategories);
+router.get('/', auth, categoryController.getCategories);
+router.post("/", auth, categoryController.createCategory);
+router.patch("/:id", auth, categoryController.updateCategory);
 
 export default router;

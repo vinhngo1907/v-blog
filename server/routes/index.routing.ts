@@ -10,8 +10,8 @@ const createRouter = (app: Express) => {
     app.use(BASE_URL + "/auth", authRouting);
   
     app.use(BASE_URL + "/user", userRouting);
-    app.use(BASE_URL + "/blogs", blogRouting);
-    app.use(BASE_URL + "/categories", categoryRouting);
+    app.use(BASE_URL + "/blog", blogRouting);
+    app.use(BASE_URL + "/category", categoryRouting);
   
 }
 
