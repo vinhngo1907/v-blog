@@ -12,6 +12,7 @@
     git clone https://github.com/vinhngo1907/mern-v-blog.git
     cd mern-v-blog
 ```
+
 2. Run make setup to install dependencies and setup the local DB (Run migration and seeding).
 
 3. Run yarn dev to run the client and back-end in development mode (live-reload support).
@@ -29,7 +30,7 @@
 
 ### Prerequisites
 - Google Cloud SDK
-- Permission to access resources in henry-technical-2 project
+- Permission to access resources in mern-v-blog project
 - Credentials of __*****__ Statging DB
 
 ### Deployment Steps
@@ -84,7 +85,7 @@ The project use TravisCI for CI/CD. The project can be accessed at Henry Technic
 1. Front-end: https://app.netlify.com/sites/mern-v-blog/overview
 2. Back-end: https://dashboard.render.com/web/mern-v-blog
 3. Database: https://cloud.mongodb.com/v2#/clusters
-4. CI server:https://github.com/vinhngo001/mern-v-blog/actions
+4. CI server: https://github.com/vinhngo001/mern-v-blog/actions
 
 **Others**
 1. Local Deploment Setup script (1 line setup with Docker)
