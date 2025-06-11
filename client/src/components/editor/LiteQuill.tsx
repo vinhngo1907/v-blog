@@ -1,6 +1,6 @@
 import React from "react";
-import { ALERT } from "../../redux/types/alertType";
 import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css';
 
 interface IProps {
     body: string,
@@ -20,9 +20,13 @@ const LiteQuill: React.FC<IProps> = ({ body, setBody }) => {
 
     return (
         <div>
-            {/* <ReactQuill theme="snow" modules={modules} value={body} placeholder="Write somethings..."
-            onChange={(e) => setBody(e)}
-            /> */}
+            <ReactQuill
+                theme="snow"
+                modules={modules}
+                value={body}
+                placeholder="Write somethings..."
+                onChange={(e) => setBody(e)}
+            />
         </div>
     )
 }

@@ -14,14 +14,14 @@ const Quill: React.FC<IProps> = ({ body, setBody }) => {
 
     return (
         <div>
-            {/* <ReactQuill 
+            <ReactQuill
             theme="snow"
                 modules={modules}
                 placeholder="Write somethings..."
                 onChange={e => setBody(e)}
                 value={body}
                 ref={quillRef} 
-                /> */}
+                />
         </div>
     )
 }

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { IBlog, IParams } from "../../utils/TypeScript";
 import { getDataAPI } from "../../utils/fetchData";
 import Loading from "../../components/global/Loading";
+import DisplayBlog from "../../components/blog/DisplayBlog";
 
 export default function DetailBlog() {
     const id = useParams<IParams>().slug;
@@ -16,7 +17,7 @@ export default function DetailBlog() {
         setLoading(true);
         getDataAPI(`blog/${id}`)
             .then(res => {
-                setBlog(res.data)
+                setBlog(res.data.blog)
                 setLoading(false);
             })
             .catch((err: any) => {
@@ -32,7 +33,7 @@ export default function DetailBlog() {
     return (
         <div className="my-4">
             {error && showErrMsg(error)}
-            {blog && <div>Detail Blog</div>}
+            {blog && <DisplayBlog blog={blog} />}
         </div>
     )
 }

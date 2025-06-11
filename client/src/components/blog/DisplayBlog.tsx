@@ -5,7 +5,7 @@ interface IProps {
     blog: IBlog
 }
 
-const DeisplayBlog: React.FC<IProps> = ({ blog }) => {
+const DisplayBlog: React.FC<IProps> = ({ blog }) => {
     return (
         <div>
             <h2 className="text-center my-3 text-capitalize fs-1"
@@ -28,3 +28,5 @@ const DeisplayBlog: React.FC<IProps> = ({ blog }) => {
         </div>
     )
 }
+
+export default DisplayBlog;
