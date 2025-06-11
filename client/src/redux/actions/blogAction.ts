@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
 import { ALERT, IAlertType } from "../types/alertType";
 import { CREATE_BLOGS_USER_ID, GET_BLOGS_USER_ID, GET_HOME_BLOGS, ICreateBlogsUserType, IGetBlogsUserType, IGetHomeBlogsType, } from "../types/blogType";
-import { getDataAPI, postDataAPI } from "../../utils/fetchData";
+import { getDataAPI, patchDataAPI, postDataAPI } from "../../utils/fetchData";
 import { IBlog } from "../../utils/TypeScript";
 import { checkTokenExp } from "../../utils/checkTokenExp";
 import { imageUpload } from "../../utils/imageUpload";
@@ -34,6 +34,31 @@ export const createBlog = (blog: IBlog, token: string) => async (dispatch: Dispa
         dispatch({ type: ALERT, payload: { loading: true } });
         
         const res = await postDataAPI('blog', newBlog, access_token);
+
+        dispatch({ type: CREATE_BLOGS_USER_ID, payload: res.data });
+        
+        dispatch({ type: ALERT, payload: { loading: false } });
+    } catch (error: any) {
+        dispatch({ type: ALERT, payload: error.response.data.msg })
+    }
+}
+
+export const updateBlog = (blog: IBlog, token: string) => async (dispatch: Dispatch<IAlertType | ICreateBlogsUserType>) => {
+    const result = await checkTokenExp(token, dispatch);
+    const access_token = result ? result : token;
+    let url;
+    try {
+        if (typeof (blog.thumbnail) !== 'string') {
+            const photo = await imageUpload(blog.thumbnail);
+            url = photo;
+        } else {
+            url = blog.thumbnail;
+        }
+        const newBlog = { ...blog, thumbnail: url };
+
+        dispatch({ type: ALERT, payload: { loading: true } });
+        
+        const res = await patchDataAPI('blog', newBlog, access_token);
 
         dispatch({ type: CREATE_BLOGS_USER_ID, payload: res.data });
         
