@@ -36,7 +36,6 @@ const categoryController = {
     },
 
     updateCategory: async (req: IReqAuth, res: Response) => {
-        console.log("????", req.user)
         if (!req.user) return res.status(400).json({ msg: "Invalid Authentication." })
         if (req.user.role !== 'admin')
             return res.status(400).json({ msg: "You don't have permission to update category." })
@@ -46,10 +45,10 @@ const categoryController = {
                 _id: req.params.id
             }, {
                 name: req.body.name
-            });
+            }, { new: true, runValidators: true });
 
             if (!updatedCategory) return res.status(400).json({ msg: "Category not found or/and user not authorized" });
-            res.json({ msg: "Updated blog in successfully" })
+            res.json({ msg: "Updated blog in successfully", category: updatedCategory })
         } catch (err: any) {
             let errMsg;
 

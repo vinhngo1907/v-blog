@@ -24,13 +24,31 @@ export interface IBlogsUser {
     blogs: IBlog[]
     search: string
     total: number
-
 }
 
 export interface IBlogsCategory {
-
+    id: string
+    blogs: IBlog[]
+    total: number
+    search: string
 }
 
 export interface IGetBlogsCategoryType {
-
+    type: typeof GET_BLOGS_CATEGORY_ID
+    payload: IBlogsCategory
 }
+
+export interface ICreateBlogsUserType {
+    type: typeof CREATE_BLOGS_USER_ID
+    payload: IBlog
+}
+
+export interface IGetBlogsUserType {
+    type: typeof GET_BLOGS_USER_ID,
+    payload: IBlogsUser
+}
+
+export type IBlogUserType = 
+| IGetBlogsUserType
+| ICreateBlogsUserType
+// | IDeleteBlogsUserType

@@ -13,8 +13,8 @@ export const login = (userLogin: IUserLogin) => async (dispatch: Dispatch<IAuthT
         dispatch({ type: ALERT, payload: { loading: false } });
         localStorage.setItem("logged", "v-dev");
     } catch (error: any) {
-        dispatch({ type: ALERT, payload: error.response.data.msg });
-        localStorage.removeItem('logged')
+        dispatch({ type: ALERT, payload: { errors: error.response.data.msg } });
+        localStorage.removeItem('logged');
     }
 }
 
@@ -28,7 +28,7 @@ export const refreshToken = () => async (dispatch: Dispatch<IAuthType | IAlertTy
         dispatch({ type: AUTH, payload: res.data });
         dispatch({ type: ALERT, payload: {} })
     } catch (error: any) {
-        dispatch({ type: ALERT, payload: error.response.data.msg });
+        dispatch({ type: ALERT, payload: { errors: error.response.data.msg } });
         localStorage.removeItem('logged');
     }
 }
@@ -41,7 +41,7 @@ export const logout = (token: string) => async (dispatch: Dispatch<IAuthType | I
         dispatch({ type: AUTH, payload: {} });
         await postDataAPI("logout", null, access_token);
     } catch (error: any) {
-        dispatch({ type: ALERT, payload: error.response.data.msg });
+        dispatch({ type: ALERT, payload: { errors: error.response.data.msg } });
         localStorage.removeItem("logged");
     }
 }
@@ -54,6 +54,6 @@ export const register = (userRegister: IUserRegister) => async (dispatch: Dispat
         dispatch({ type: ALERT, payload: { loading: false } });
         localStorage.setItem("logged", "v-dev");
     } catch (error: any) {
-        dispatch({ type: ALERT, payload: error.response.data.msg });
+        dispatch({ type: ALERT, payload: { errors: error.response.data.msg } });
     }
 }

@@ -6,8 +6,19 @@ import mongoose from "mongoose";
 const blogController = {
     getBlogs: async (req: Request, res: Response) => {
         try {
-            const data = await blogModel.aggregate([
-                // User
+            const { title } = req.query;
+
+            const pipeline: any[] = [];
+
+            if (title) {
+                pipeline.push({
+                    $match: {
+                        title: { $regex: title, $options: "i" }
+                    }
+                });
+            }
+            // User
+            pipeline.push(
                 {
                     $lookup: {
                         from: "users",
@@ -15,12 +26,15 @@ const blogController = {
                         pipeline: [
                             { $match: { $expr: { $eq: ["$_id", "$$user_id"] } } },
                             { $project: { password: 0, rf_token: 0, __v: 0 } }
-
                         ],
                         as: "user"
                     }
-                }, { $unwind: "$user" },
-                // Category
+                },
+                { $unwind: "$user" }
+            );
+
+            // Category
+            pipeline.push(
                 {
                     $lookup: {
                         from: "categories",
@@ -29,30 +43,44 @@ const blogController = {
                             { $match: { $expr: { $eq: ["$_id", "$$category_id"] } } },
                         ],
                         as: "category"
-                    },
-                }, { $unwind: "$category" },
-                { $sort: { "createdAt": -1 } },
-                // Group by category
-                {
-                    $group: {
-                        _id: "$category._id",
-                        name: { $first: "$category.name" },
-                        blogs: { $push: "$$ROOT" },
-                        count: { "$sum": 1 }
                     }
                 },
-                // Pagaination
-                {
-                    $project: {
-                        blogs: {
-                            $slice: ["$blogs", 0, 4]
-                        },
-                        count: 1,
-                        name: 1
-                    }
+                { $unwind: "$category" }
+            );
+
+            // Sort by createdAt
+            pipeline.push({ $sort: { createdAt: -1 } });
+
+            // Group by category
+            pipeline.push({
+                $group: {
+                    _id: "$category._id",
+                    name: { $first: "$category.name" },
+                    blogs: { $push: "$$ROOT" },
+                    count: { $sum: 1 }
                 }
-            ]);
-            res.json({ blogList: data, msg: "List blogs in home page successfully!!!" });
+            });
+
+            // Pagination
+            pipeline.push({
+                $project: {
+                    blogs: {
+                        $slice: ["$blogs", 0, 4]
+                    },
+                    count: 1,
+                    name: 1
+                }
+            });
+
+            // Execute aggregation
+            const data = await blogModel.aggregate(pipeline);
+
+            return res.json({
+                blogList: data,
+                msg: title
+                    ? `Search blogs by title: "${title}"`
+                    : "List blogs in home page successfully!!!"
+            });
         } catch (error: any) {
             return res.status(500).json({
                 msg: error.message

@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/actions/authAction";
+import { ALERT } from "../../redux/types/alertType";
 
 const LoginPass = () => {
     const [userLogin, setUserLogin] = useState({
         account: "",
         password: ""
     });
+
     const dispatch = useDispatch();
     const { account, password } = userLogin;
     const [typePass, setTypePass] = useState(false);
+
     const handleChangeInput = (e: any) => {
         setUserLogin({ ...userLogin, [e.target.id]: e.target.value })
     }
