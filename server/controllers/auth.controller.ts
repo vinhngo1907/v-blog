@@ -5,7 +5,7 @@ import userModel from "../models/user.model";
 import { validEmail, validPhone } from "../middlewares/valid.middleware";
 import { OAuth2Client } from 'google-auth-library';
 import sendEmail from "../utils/sendEmail.util";
-import { IDecodeToken, IUser } from "../configs/interface.config";
+import { IDecodeToken, IReqAuth, IUser } from "../configs/interface.config";
 import jwt from 'jsonwebtoken';
 const client = new OAuth2Client(`${process.env.MAIL_CLIENT_ID}`)
 const CLIENT_URL = `${process.env.BASE_URL}`
@@ -65,7 +65,7 @@ const authController = {
 
     refreshToken: async (req: Request, res: Response) => {
         try {
-            const rf_token = req.cookies.rf_token;
+            const rf_token = req.cookies.refreshToken;
             if (!rf_token) return res.status(400).json({ msg: "Please login now!" });
             const decoded = <IDecodeToken>jwt.verify(rf_token, `${process.env.REFRESH_TOKEN_SECRET}`);
             const user = await userModel.findOne({
@@ -108,6 +108,21 @@ const authController = {
 
             });
 
+        } catch (error: any) {
+            console.log(error);
+            return res.status(500).json({ msg: error.message });
+        }
+    },
+    logout: async (req: IReqAuth, res: Response) => {
+        if (!req.user) return res.status(400).json({ msg: "Invalid Authentication" })
+        try {
+            res.clearCookie("refreshToken", { path: "api/auth/refresh_token" });
+            await userModel.findOneAndUpdate({
+                _id: req.user._id
+            }, {
+                rf_token: ""
+            })
+            res.json({ msg: "Logged out in successfully!!!" });
         } catch (error: any) {
             console.log(error);
             return res.status(500).json({ msg: error.message });

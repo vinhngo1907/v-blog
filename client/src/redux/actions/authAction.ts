@@ -29,7 +29,7 @@ export const refreshToken = () => async (dispatch: Dispatch<IAuthType | IAlertTy
         dispatch({ type: ALERT, payload: {} })
     } catch (error: any) {
         dispatch({ type: ALERT, payload: error.response.data.msg });
-        localStorage.removeItem('logged')
+        localStorage.removeItem('logged');
     }
 }
 
@@ -42,6 +42,7 @@ export const logout = (token: string) => async (dispatch: Dispatch<IAuthType | I
         await postDataAPI("logout", null, access_token);
     } catch (error: any) {
         dispatch({ type: ALERT, payload: error.response.data.msg });
+        localStorage.removeItem("logged");
     }
 }
 
