@@ -6,7 +6,6 @@ interface IProps {
 }
 
 const CardVert: React.FC<IProps> = ({ blog }) => {
-    console.log({blog})
     return (
         <div className="card">
             {

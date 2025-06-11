@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux"
 import { RootStore } from "../../utils/TypeScript"
 import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+// import { useState } from "react";
 
 export default function Menu() {
     const { auth } = useSelector((state: RootStore) => state);

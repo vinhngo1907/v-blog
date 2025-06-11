@@ -56,7 +56,7 @@ export interface IBlog {
     user: string | IUser
     title: string
     content: string
-    description?: string
+    description: string
     // category: string | ICategory
     thumbnail: string | File
     createdAt: string

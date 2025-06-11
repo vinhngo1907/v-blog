@@ -3,9 +3,7 @@ import { useParams } from 'react-router-dom'
 import { IParams } from '../utils/TypeScript'
 import NotFound from '../components/global/NotFound'
 
-
 const generatePage = (name: string) => {
-	console.log({name})
 	const component = () => require(`../pages/${name}`).default
 
 	try {

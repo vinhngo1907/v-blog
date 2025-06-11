@@ -13,7 +13,8 @@ export const login = (userLogin: IUserLogin) => async (dispatch: Dispatch<IAuthT
         dispatch({ type: ALERT, payload: { loading: false } });
         localStorage.setItem("logged", "v-dev");
     } catch (error: any) {
-        dispatch({ type: ALERT, payload: error.response.data.msg })
+        dispatch({ type: ALERT, payload: error.response.data.msg });
+        localStorage.removeItem('logged')
     }
 }
 
@@ -22,11 +23,13 @@ export const refreshToken = () => async (dispatch: Dispatch<IAuthType | IAlertTy
     if (logged !== 'v-dev') return;
 
     try {
+        dispatch({ type: ALERT, payload: { loading: true } })
         const res = await getDataAPI('auth/refresh_token');
         dispatch({ type: AUTH, payload: res.data });
         dispatch({ type: ALERT, payload: {} })
     } catch (error: any) {
-        dispatch({ type: ALERT, payload: error.response.data.msg })
+        dispatch({ type: ALERT, payload: error.response.data.msg });
+        localStorage.removeItem('logged')
     }
 }
 
@@ -44,12 +47,12 @@ export const logout = (token: string) => async (dispatch: Dispatch<IAuthType | I
 
 export const register = (userRegister: IUserRegister) => async (dispatch: Dispatch<IAuthType | IAlertType>) => {
     try {
-         dispatch({ type: ALERT, payload: { loading: true } });
+        dispatch({ type: ALERT, payload: { loading: true } });
         const result = await postDataAPI('register', userRegister, null);
         dispatch({ type: AUTH, payload: result.data });
         dispatch({ type: ALERT, payload: { loading: false } });
         localStorage.setItem("logged", "v-dev");
-    }catch (error: any) {
+    } catch (error: any) {
         dispatch({ type: ALERT, payload: error.response.data.msg });
     }
 }
