@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/actions/authAction";
-import { ALERT } from "../../redux/types/alertType";
 
 const LoginPass = () => {
     const [userLogin, setUserLogin] = useState({

@@ -6,7 +6,7 @@ import blogModel from "../models/blog.model";
 const categoryController = {
     getCategories: async (req: Request, res: Response) => {
         try {
-            const categories = await categoryModel.find({});
+            const categories = await categoryModel.find({}).sort("-createdAt");
             res.json({ msg: "Success", categories });
         } catch (error: any) {
             console.log(error);

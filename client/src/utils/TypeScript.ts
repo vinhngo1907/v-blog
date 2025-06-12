@@ -11,7 +11,6 @@ export type FormSubmit = FormEvent<HTMLFormElement>
 
 export type RootStore = ReturnType<typeof rootReducer>
 
-
 export interface IParams {
     page: string
     slug: string

@@ -25,7 +25,7 @@ export const createBlog = (blog: IBlog, token: string) => async (dispatch: Dispa
     try {
         if (typeof (blog.thumbnail) !== 'string') {
             const photo = await imageUpload(blog.thumbnail);
-            url = photo;
+            url = photo.url;
         } else {
             url = blog.thumbnail;
         }
@@ -39,7 +39,7 @@ export const createBlog = (blog: IBlog, token: string) => async (dispatch: Dispa
         
         dispatch({ type: ALERT, payload: { loading: false } });
     } catch (error: any) {
-        dispatch({ type: ALERT, payload: error.response.data.msg })
+        dispatch({ type: ALERT, payload: {errors: error.response.data.msg }})
     }
 }
 
@@ -50,7 +50,7 @@ export const updateBlog = (blog: IBlog, token: string) => async (dispatch: Dispa
     try {
         if (typeof (blog.thumbnail) !== 'string') {
             const photo = await imageUpload(blog.thumbnail);
-            url = photo;
+            url = photo.url;
         } else {
             url = blog.thumbnail;
         }
@@ -64,7 +64,7 @@ export const updateBlog = (blog: IBlog, token: string) => async (dispatch: Dispa
         
         dispatch({ type: ALERT, payload: { loading: false } });
     } catch (error: any) {
-        dispatch({ type: ALERT, payload: error.response.data.msg })
+        dispatch({ type: ALERT, payload: {errors: error.response.data.msg} })
     }
 }
 

@@ -70,7 +70,7 @@ const authController = {
             const decoded = <IDecodeToken>jwt.verify(rf_token, `${process.env.REFRESH_TOKEN_SECRET}`);
             const user = await userModel.findOne({
                 _id: decoded?.id
-            }).select("-password +rf_token");
+            }).select("-password +rf_token -__v");
 
             if (!user) return res.status(400).json({ msg: "User not found or/and authorized" });
 
@@ -82,7 +82,8 @@ const authController = {
             });
 
             const accessToken = createAccessToken({ id: user._id });
-            res.json({ msg: "Refresh token in successfully", access_token: accessToken })
+           
+            res.json({ msg: "Refresh token in successfully", access_token: accessToken, user })
         } catch (error: any) {
             console.log(error);
             return res.status(500).json({ msg: error.message });

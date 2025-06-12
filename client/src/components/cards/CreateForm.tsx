@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { IBlog, InputChange, RootStore } from "../../utils/TypeScript";
-import { useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 
 interface IProps {
     blog: IBlog,
@@ -9,14 +9,18 @@ interface IProps {
 
 const CreateForm: React.FC<IProps> = ({ blog, setBlog }) => {
     const { categories } = useSelector((state: RootStore) => state);
+
     const handleChangeInput = (e: InputChange) => {
         const { name, value } = e.target;
         setBlog({ ...blog, [name]: value })
     }
 
     const handleChangeThumbnail = (e: InputChange) => {
-        e.preventDefault();
-        
+        const files = (e.target as HTMLInputElement).files;
+        if (files) {
+            const file = files[0];
+            setBlog({ ...blog, thumbnail: file });
+        }
     }
 
     return (
@@ -31,7 +35,11 @@ const CreateForm: React.FC<IProps> = ({ blog, setBlog }) => {
                 </small>
             </div>
             <div className="form-group my-3">
-                <input type="file" className="form-control" accept="image/*" onChange={handleChangeThumbnail}/>
+                <input
+                    type="file" className="form-control"
+                    accept="image/*"
+                    onChange={handleChangeThumbnail} 
+                />
             </div>
             <div className="form-group position-relative">
                 <textarea

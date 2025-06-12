@@ -8,8 +8,14 @@ export default function categoryReducer(
         case types.GET_CATEGORIES:
             return action.payload;
         case types.CREATE_CATEGORY:
-            return [action.payload, ...state]
-        // case types.UPDATE_CATEGORY:
+            return [action.payload, ...state];
+        case types.UPDATE_CATEGORY:
+            const newCategory = action.payload;
+            return state.map((item) => item._id === newCategory._id ? {
+                ...item, name: newCategory.name
+            } : item);
+        case types.DELETE_CATEGORY:
+            return state.filter(item => item._id !== action.payload);
         default:
             return state;
     }

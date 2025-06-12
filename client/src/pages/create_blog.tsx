@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux"
+import { shallowEqual, useDispatch, useSelector } from "react-redux"
 import { IBlog, IUser, RootStore } from "../utils/TypeScript"
 import NotFound from "../components/global/NotFound";
 import { useEffect, useRef, useState } from "react";
@@ -56,16 +56,17 @@ export default function CreateBlog({ id }: any) {
         const div = divRef.current;
         if (!div) return;
 
-        const text = (div?.innerHTML as string)
+        const text = (div?.innerHTML as string);
         setText(text);
     }, [body]);
 
     const handleSubmit = async () => {
         if (!auth.access_token) return;
         const check = validCreateBlog({ ...blog, content: text });
-        if (check.errLength > 0) {
+        if (check.errLength !== 0) {
             return dispatch({ type: ALERT, payload: { errors: check.errMsg } })
         }
+
         const newData = { ...blog, content: body }
         if (id) {
             if ((blog.user as IUser)._id !== auth.user?._id) {
@@ -74,7 +75,11 @@ export default function CreateBlog({ id }: any) {
                     payload: { errors: 'Invalid Authentication.' }
                 })
             }
-            // const result = await 
+            const result = shallowEqual(oldData, newData);
+            if(result) return dispatch({
+                type: ALERT,
+                payload: {errors: "Tha data does not change."}
+            });
             dispatch(updateBlog(newData, auth.access_token))
         } else {
             dispatch(createBlog(newData, auth.access_token))

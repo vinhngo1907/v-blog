@@ -10,8 +10,8 @@ export default function DetailBlog() {
     const id = useParams<IParams>().slug;
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
-    const [blog, setBlog] = useState<IBlog>()
-
+    const [blog, setBlog] = useState<IBlog>();
+    
     useEffect(() => {
         if (!id) return;
         setLoading(true);
