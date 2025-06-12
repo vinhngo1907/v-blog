@@ -37,7 +37,7 @@ export const createBlog = (blog: IBlog, token: string) => async (dispatch: Dispa
 
         dispatch({ type: CREATE_BLOGS_USER_ID, payload: res.data });
         
-        dispatch({ type: ALERT, payload: { loading: false } });
+        dispatch({ type: ALERT, payload: { success: res.data.msg } });
     } catch (error: any) {
         dispatch({ type: ALERT, payload: {errors: error.response.data.msg }})
     }
@@ -62,7 +62,7 @@ export const updateBlog = (blog: IBlog, token: string) => async (dispatch: Dispa
 
         dispatch({ type: CREATE_BLOGS_USER_ID, payload: res.data });
         
-        dispatch({ type: ALERT, payload: { loading: false } });
+        dispatch({ type: ALERT, payload: { success: res.data.msg } });
     } catch (error: any) {
         dispatch({ type: ALERT, payload: {errors: error.response.data.msg} })
     }
