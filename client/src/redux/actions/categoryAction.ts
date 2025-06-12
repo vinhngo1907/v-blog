@@ -50,7 +50,7 @@ export const deleteCategory = (id: string, token: string) => async (dispatch: Di
     const result = await checkTokenExp(token, dispatch);
     const access_token = result ? result : token;
     try {
-        dispatch({ type: ALERT, payload: { loading: true } })
+        dispatch({ type: ALERT, payload: { loading: true } });
         const res = await deleteDataAPI(`category/${id}`, access_token);
         dispatch({ type: DELETE_CATEGORY, payload: res.data.categories });
         dispatch({ type: ALERT, payload: { success: res.data.msg } });

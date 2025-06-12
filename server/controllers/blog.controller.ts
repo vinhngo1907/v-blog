@@ -221,18 +221,35 @@ const blogController = {
         }
     },
     updateBlog: async (req: IReqAuth, res: Response) => {
+        if (!req.user) return res.status(400).json({ msg: "Please login now!" });
         try {
+            const blog = await blogModel.findOneAndUpdate({
+                _id: req.params.id, user: req.user._id
+            }, req.body, {
+                runValidators: true, new: true
+            });
+            if (!blog) return res.status(400).json({ msg: "Blog not found or user not authorized" })
 
+            res.json({ msg: "Updated blog in successfully", blog });
         } catch (error: any) {
             return res.status(500).json({ msg: error.message });
         }
     },
-    delete: async (req: IReqAuth, res: Response) => {
+    deleteBlog: async (req: IReqAuth, res: Response) => {
+        if (!req.user)
+            return res.status(400).json({ msg: "Invalid Authentication." })
+
         try {
+            // Delete Blog
+            const blog = await blogModel.findOneAndDelete({
+                _id: req.params.id, user: req.user._id
+            })
+
+            if (!blog)
+                return res.status(400).json({ msg: "Invalid Authentication." })
 
         } catch (error: any) {
             return res.status(500).json({ msg: error.message });
-
         }
     }
 }
