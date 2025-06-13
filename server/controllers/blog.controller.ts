@@ -250,6 +250,39 @@ const blogController = {
         } catch (error: any) {
             return res.status(500).json({ msg: error.message });
         }
+    },
+    searchBlogs: async (req: Request, res: Response) => {
+        try {
+            const blogs = await blogModel.aggregate([
+                {
+                    $search: {
+                        index: "searchTitle",
+                        autocomplete: {
+                            "query": `${req.query.title}`,
+                            "path": "title"
+                        }
+                    }
+                },
+                { $sort: { createdAt: -1 } },
+                { $limit: 5 },
+                {
+                    $project: {
+                        title: 1,
+                        description: 1,
+                        thumbnail: 1,
+                        createdAt: 1
+                    }
+                }
+            ])
+
+            if (!blogs.length)
+                return res.status(400).json({ msg: 'No Blogs.' })
+
+            res.json(blogs)
+
+        } catch (error: any) {
+            return res.status(500).json({ msg: error.message });
+        }
     }
 }
 

@@ -9,7 +9,7 @@ const Footer = () => {
                 className="mb-2 d-block">
                 https://github.com/vinhngo001
             </a>
-            <p> Copyright &copy; 2023</p>
+            <p> Copyright &copy; 2025</p>
         </div>
     )
 }
