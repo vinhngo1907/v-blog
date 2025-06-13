@@ -113,8 +113,7 @@ const blogController = {
         }
     },
     getBlogsByCategory: async (req: Request, res: Response) => {
-        const { limit, page, skip } = Pagination(req);
-
+        const { limit, skip } = Pagination(req);
         try {
             const blogs = await blogModel.aggregate([
                 {
@@ -151,7 +150,7 @@ const blogController = {
                 },
                 {
                     $project: {
-                        count: { $arrayElement: ["$totalCount.count", 0] },
+                        count: { $arrayElemAt: ["$totalCount.count", 0] },
                         totalData: 1
                     }
                 }
@@ -206,7 +205,7 @@ const blogController = {
                 },
                 {
                     $project: {
-                        count: { $arrayElement: ["$totalCount.count", 0] },
+                        count: { $arrayElemAt: ["$totalCount.count", 0] },
                         totalData: 1
                     }
                 }

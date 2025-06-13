@@ -7,7 +7,8 @@ const blogSchema = new mongoose.Schema({
     description: { type: String, require: true, trim: true, maxLength: 200, minLength: 50 },
     user: { type: mongoose.Types.ObjectId, ref: "user" },
     thumbnail: { type: String, require: true },
-    category: { type: mongoose.Types.ObjectId, ref: 'category' }
+    category: { type: mongoose.Types.ObjectId, ref: 'category' },
+    // comments: { type: mongoose.Types.ObjectId, ref: "comment" }
 }, {
     versionKey: false,
     timestamps: true

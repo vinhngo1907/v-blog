@@ -3,16 +3,18 @@ import authRouting from "./auth.routing";
 import userRouting from "./user.routing";
 import blogRouting from "./blog.routing";
 import categoryRouting from "./category.routing";
+import commentRouting from "./comment.routing";
 
 const BASE_URL = "/api";
 
 const createRouter = (app: Express) => {
     app.use(BASE_URL + "/auth", authRouting);
-  
+
     app.use(BASE_URL + "/user", userRouting);
     app.use(BASE_URL + "/blog", blogRouting);
     app.use(BASE_URL + "/category", categoryRouting);
-  
+    app.use(BASE_URL + "/comment", commentRouting);
+
 }
 
 export default createRouter;

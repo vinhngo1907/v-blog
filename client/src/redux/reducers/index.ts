@@ -4,11 +4,15 @@ import alert from './alertReducer'
 import homeBlogs from './blogsHomeReducer'
 import categories from './categoryReducer';
 import otherInfo from './otherInfoReducer';
+import comments from './commentReducer';
+import blogsCategory from './blogsCategory';
 
 export default combineReducers({
     auth,
     alert,
     homeBlogs,
     categories,
-    otherInfo
+    otherInfo,
+    comments,
+    blogsCategory
 });

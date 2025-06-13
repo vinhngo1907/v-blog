@@ -1,11 +1,31 @@
-import React from "react";
-import { IBlog } from "../../utils/TypeScript";
+import React, { useEffect, useState } from "react";
+import { IBlog, IComment, RootStore } from "../../utils/TypeScript";
+import { useSelector } from "react-redux";
+import Loading from "../global/Loading";
+import Comments from "../comments/Comments";
+import Input from "../comments/Input";
+import { Link } from "react-router-dom";
 
 interface IProps {
     blog: IBlog
 }
 
 const DisplayBlog: React.FC<IProps> = ({ blog }) => {
+    const { auth, comments } = useSelector((state: RootStore) => state);
+    const [showComments, setShowComments] = useState<IComment[]>([]);
+    const [loading, setLoading] = useState(false);
+    const handleComment = (body: string) => {
+        if (!auth.access_token) return;
+
+    }
+    useEffect(() => {
+        if (!blog._id) return;
+    }, [blog._id]);
+
+    useEffect(() => {
+        setShowComments(comments.data);
+    }, [comments.data]);
+
     return (
         <div>
             <h2 className="text-center my-3 text-capitalize fs-1"
@@ -24,7 +44,21 @@ const DisplayBlog: React.FC<IProps> = ({ blog }) => {
 
             <hr className="my-1" />
             <h3 style={{ color: '#ff7a00' }}>✩ Comments ✩</h3>
-            {/* User Comments */}
+            {
+                auth.user
+                    ? <Input callback={handleComment}/>
+                    : <h5>
+                        Please <Link to={`/login?blog/${blog._id}`}>login</Link> to comment.
+                    </h5>
+            }
+            {
+                loading
+                    ? <Loading />
+                    : showComments?.map((comment, index) => (
+                        <Comments key={index} comment={comment} />
+                    ))
+            }
+            {/* Pagination */}
         </div>
     )
 }

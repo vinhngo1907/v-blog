@@ -44,12 +44,22 @@ export interface IDecodedToken {
     exp: number
 }
 
-export interface IBlog {
+export interface IBlog extends Document {
     user: string,
     title: string,
     content: string,
     description: string,
     thumbnail: string,
     category: string,
+    _doc: object
+}
+
+export interface IComment extends Document {
+    blogId: string,
+    blogUserId: string,
+    content: string,
+    replyCM: string[],
+    replyUser: string,
+    commentRoot: string,
     _doc: object
 }

@@ -67,3 +67,15 @@ export interface ICategory {
     createdAt: string
     updatedAt: string
 }
+
+export interface IComment {
+    _id?:string,
+    user:IUser
+    blogId: string
+    blogUser: string
+    content: string
+    replyCM: string
+    replyUser?: IUser
+    commentRoot?: string
+    createdAt: string
+}

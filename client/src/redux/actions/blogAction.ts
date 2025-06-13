@@ -1,6 +1,6 @@
 import { Dispatch } from "react";
 import { ALERT, IAlertType } from "../types/alertType";
-import { CREATE_BLOGS_USER_ID, GET_BLOGS_USER_ID, GET_HOME_BLOGS, ICreateBlogsUserType, IGetBlogsUserType, IGetHomeBlogsType, } from "../types/blogType";
+import { CREATE_BLOGS_USER_ID, GET_BLOGS_CATEGORY_ID, GET_BLOGS_USER_ID, GET_HOME_BLOGS, ICreateBlogsUserType, IGetBlogsCategoryType, IGetBlogsUserType, IGetHomeBlogsType, } from "../types/blogType";
 import { getDataAPI, patchDataAPI, postDataAPI } from "../../utils/fetchData";
 import { IBlog } from "../../utils/TypeScript";
 import { checkTokenExp } from "../../utils/checkTokenExp";
@@ -10,7 +10,6 @@ export const getHomeLogs = () => async (dispatch: Dispatch<IAlertType | IGetHome
     try {
         dispatch({ type: ALERT, payload: { loading: true } });
         const res = await getDataAPI("blog/home");
-        console.log(res.data)
         dispatch({ type: GET_HOME_BLOGS, payload: res.data.blogList });
         dispatch({ type: ALERT, payload: { loading: false } });
     } catch (error: any) {
@@ -32,14 +31,14 @@ export const createBlog = (blog: IBlog, token: string) => async (dispatch: Dispa
         const newBlog = { ...blog, thumbnail: url };
 
         dispatch({ type: ALERT, payload: { loading: true } });
-        
+
         const res = await postDataAPI('blog', newBlog, access_token);
 
         dispatch({ type: CREATE_BLOGS_USER_ID, payload: res.data });
-        
+
         dispatch({ type: ALERT, payload: { success: res.data.msg } });
     } catch (error: any) {
-        dispatch({ type: ALERT, payload: {errors: error.response.data.msg }})
+        dispatch({ type: ALERT, payload: { errors: error.response.data.msg } })
     }
 }
 
@@ -57,14 +56,14 @@ export const updateBlog = (blog: IBlog, token: string) => async (dispatch: Dispa
         const newBlog = { ...blog, thumbnail: url };
 
         dispatch({ type: ALERT, payload: { loading: true } });
-        
+
         const res = await patchDataAPI('blog', newBlog, access_token);
 
         dispatch({ type: CREATE_BLOGS_USER_ID, payload: res.data });
-        
+
         dispatch({ type: ALERT, payload: { success: res.data.msg } });
     } catch (error: any) {
-        dispatch({ type: ALERT, payload: {errors: error.response.data.msg} })
+        dispatch({ type: ALERT, payload: { errors: error.response.data.msg } })
     }
 }
 
@@ -81,6 +80,28 @@ export const getBlogsByUserId = (id: string, search: string) => async (dispatch:
             }
         })
         dispatch({ type: ALERT, payload: { loading: false } });
+    } catch (error: any) {
+        dispatch({ type: ALERT, payload: error.response.data.msg })
+    }
+}
+
+export const getBlogsByCategoryId = (id: string, search?: string) => async (dispatch: Dispatch<IAlertType | IGetBlogsCategoryType>) => {
+    try {
+        let limit = 8;
+        let value = search ? search : `?page=${1}`;
+        console.log({id,value})
+
+        dispatch({ type: ALERT, payload: { loading: true } });
+
+        const res = await getDataAPI(`blog/category/${id}${value}&limit=${limit}`)
+console.log(res.data)
+        dispatch({
+            type: GET_BLOGS_CATEGORY_ID,
+            payload: { ...res.data, id, search }
+        })
+
+        dispatch({ type: ALERT, payload: { loading: false } });
+
     } catch (error: any) {
         dispatch({ type: ALERT, payload: error.response.data.msg })
     }

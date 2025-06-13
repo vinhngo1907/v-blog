@@ -39,3 +39,6 @@ code {
 
 /* ---------- Profile ------------ */
 @import url('./profile.css');
+
+/* ---------- Comment ------------ */
+@import url('./comment.css');
